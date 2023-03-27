@@ -1,0 +1,106 @@
+{
+  "name": "code-gen-poc",
+  "version": "0.0.1",
+  "description": "Code generator POC",
+  "author": "Scott Yang @yisyang",
+  "homepage": "https://github.com/yisyang/code-gen-poc",
+  "license": "MIT",
+  "scripts": {
+    "start": "./bin/dev",
+    "start:prod": "./bin/run",
+    "build": "shx rm -rf dist && tsc -b",
+    "lint": "eslint . --ext .ts --fix",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "yarn lint",
+    "prepack": "yarn build && oclif manifest && oclif readme",
+    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif readme && git add README.md"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "bin": "./bin/run",
+  "main": "dist/index.js",
+  "repository": "yisyang/code-gen-poc",
+  "files": [
+    "/bin",
+    "/dist",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "dependencies": {
+    "@oclif/core": "^2",
+    "@oclif/plugin-help": "^5",
+    "@oclif/plugin-plugins": "^2.4.3",
+    "axios": "^1.3.4",
+    "openai": "^3.2.1"
+  },
+  "devDependencies": {
+    "@oclif/test": "^2.3.11",
+    "@types/chai": "^4",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.18.20",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "chai": "^4",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-node": "^11.1.0",
+    "mocha": "^9",
+    "oclif": "^3",
+    "prettier": "^2.8.7",
+    "shx": "^0.3.3",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5"
+  },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 2021,
+      "sourceType": "module"
+    },
+    "env": {
+      "node": true,
+      "es2021": true,
+      "mocha": true
+    },
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "prettier"
+    ],
+    "rules": {
+      "indent": [
+        "error",
+        2
+      ],
+      "semi": [
+        "error",
+        "never"
+      ]
+    }
+  },
+  "oclif": {
+    "bin": "code-gen-poc",
+    "dirname": "code-gen-poc",
+    "commands": "./dist/commands",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-plugins"
+    ],
+    "topicSeparator": " ",
+    "topics": {
+      "hello": {
+        "description": "Say hello to the world and others"
+      }
+    }
+  },
+  "bugs": "https://github.com/yisyang/code-gen-poc/issues",
+  "keywords": [
+    "oclif"
+  ],
+  "types": "dist/index.d.ts"
+}
