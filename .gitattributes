@@ -1,2 +1,6 @@
+# LFS
 *.zip filter=lfs diff=lfs merge=lfs -text
 *.gz filter=lfs diff=lfs merge=lfs -text
+
+# Set text line ending
+* text eol=lf
