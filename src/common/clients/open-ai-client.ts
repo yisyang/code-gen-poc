@@ -34,7 +34,12 @@ export default class OpenAiClient {
     // });
   }
 
-  async codeByChat(prompt: string, language: string) {
+  async codeByChat(prompt: string, language: string, noStop: boolean) {
+    const stop = noStop ? undefined : [
+      '``` ',
+      '```\\n',
+    ]
+
     return this.openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [
@@ -49,10 +54,7 @@ export default class OpenAiClient {
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
-      stop: [
-        '``` ',
-        '```\\n',
-      ]
+      stop: stop
     })
   }
 

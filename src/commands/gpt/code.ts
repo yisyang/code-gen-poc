@@ -13,8 +13,9 @@ gpt chat Say hello world (./src/commands/gpt/chat.ts)
   ]
 
   static flags = {
-    verbose: Flags.boolean({char: 'v', description: 'Turn on verbose output'}),
     language: Flags.string({char: 'l', description: 'Programming language to use', default: 'python'}),
+    noStop: Flags.boolean({char: 'n', description: 'Turn off stop word on ```, useful when gpt returns instructions with separate code blocks.'}),
+    verbose: Flags.boolean({char: 'v', description: 'Turn on verbose output'}),
   }
 
   static args = {
@@ -30,7 +31,7 @@ gpt chat Say hello world (./src/commands/gpt/chat.ts)
     this.log(`Input: ${args.input}`)
     let res
     try {
-      res = await oac.codeByChat(args.input, flags.language)
+      res = await oac.codeByChat(args.input, flags.language, flags.noStop)
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {
         if (e.response) {
@@ -58,12 +59,17 @@ gpt chat Say hello world (./src/commands/gpt/chat.ts)
     }
     if (res.data.choices[0].message) {
       // Extracted code in requested language
-      let code = res.data.choices[0].message.content.replace(/^```[a-z]*\s*/gm, '')
+      let code = res.data.choices[0].message.content;
 
-      // Test to see if code contains ```
-      const index = code.indexOf('```')
-      if (index !== -1) {
-        code = code.substring(0, index)
+      // Strip initial `s
+      if (code.substring(0, 3) === '```') {
+        code = code.replace(/^```[a-z]*\s*/gm, '')
+
+        // Check if there's `s on the other side
+        const index = code.indexOf('```')
+        if (index !== -1) {
+          code = code.substring(0, index)
+        }
       }
 
       // Nothing is here
