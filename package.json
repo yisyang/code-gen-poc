@@ -19,6 +19,7 @@
   "engines": {
     "node": ">=18.0.0"
   },
+  "packageManager": "yarn@3.5.0",
   "bin": "./bin/run",
   "main": "dist/index.js",
   "repository": "yisyang/code-gen-poc",
