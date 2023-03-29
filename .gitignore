@@ -50,3 +50,4 @@ oclif.manifest.json
 /packages/graphql
 /benchmarks/memory
 build/config\.gypi
+/node_modules

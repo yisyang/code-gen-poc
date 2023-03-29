@@ -22,11 +22,13 @@ export OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
 
 yarn start gpt chat "Can you think of some fun logic games that can use GPT for content generation?"
 
-yarn start gpt chat  yarn start gpt chat "What would be a good analogy in the steps of writing code to the steps of painting: sketch, lines, flats, colors, shadows, highlights? Consider folder structure, tests, interfaces, etc."
+yarn start gpt chat "What would be a good analogy in the steps of writing code to the steps of painting: sketch, lines, flats, colors, shadows, highlights? Consider folder structure, tests, interfaces, etc."
 
 yarn start gpt code -l bash "I'd like to start a new NestJS project using best practices, please provide commands to get me started."
 
 yarn start gpt code -l typescript 'Hello world as OOP'
+
+yarn start image 'A cute puppy'
 ```
 
 Building & Running (Prod)

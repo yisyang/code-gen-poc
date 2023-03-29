@@ -14,6 +14,8 @@
     "posttest": "yarn lint",
     "prepack": "yarn build && oclif manifest && oclif readme",
     "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "test:debug": "mocha --forbid-only --no-exit",
+    "coverage": "nyc yarn test",
     "version": "oclif readme && git add README.md"
   },
   "engines": {
@@ -38,22 +40,25 @@
   },
   "devDependencies": {
     "@oclif/test": "^2.3.11",
-    "@types/chai": "^4",
+    "@types/chai": "^4.3.4",
+    "@types/chai-as-promised": "^7.1.5",
     "@types/mocha": "^9.0.0",
-    "@types/node": "^16.18.20",
+    "@types/node": "^18.15.11",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
     "chai": "^4",
+    "chai-as-promised": "^7.1.1",
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-node": "^11.1.0",
     "mocha": "^9",
+    "nyc": "^15.1.0",
     "oclif": "^3",
     "prettier": "^2.8.7",
     "shx": "^0.3.3",
     "ts-node": "^10.9.1",
     "tslib": "^2.5.0",
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.2"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",

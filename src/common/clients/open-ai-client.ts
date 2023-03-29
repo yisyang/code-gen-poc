@@ -11,7 +11,7 @@ export default class OpenAiClient {
     this.openai = new OpenAIApi(new Configuration(config))
   }
 
-  async chat(prompt: string, prevMessages?: Array<ChatCompletionRequestMessage>, nextMessages?: Array<ChatCompletionRequestMessage>) {
+  async chat(prompt: string, prevMessages?: Array<ChatCompletionRequestMessage>, nextMessages?: Array<ChatCompletionRequestMessage>, max_tokens?: number) {
     return this.openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [
@@ -20,7 +20,7 @@ export default class OpenAiClient {
         ...nextMessages ?? []
       ],
       temperature: 0.7,
-      max_tokens: 3800,
+      max_tokens: max_tokens ?? 3800,
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0
@@ -34,7 +34,7 @@ export default class OpenAiClient {
     // });
   }
 
-  async codeByChat(prompt: string, language: string, noStop: boolean) {
+  async codeByChat(prompt: string, language: string, noStop?: boolean, max_tokens?: number) {
     const stop = noStop ? undefined : [
       '``` ',
       '```\\n',
@@ -50,7 +50,7 @@ export default class OpenAiClient {
         { role: "assistant", content: `Sure, here is your code in ${language}:\\n`},
       ],
       temperature: 0.7,
-      max_tokens: 3800,
+      max_tokens: max_tokens ?? 3800,
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
@@ -58,15 +58,23 @@ export default class OpenAiClient {
     })
   }
 
-  async complete(prompt: string) {
+  async complete(prompt: string, max_tokens?: number) {
     return this.openai.createCompletion({
       model: "text-davinci-003",
       prompt: prompt,
       temperature: 0.7,
-      max_tokens: 3800,
+      max_tokens: max_tokens ?? 3800,
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
+    })
+  }
+
+  async image(prompt: string) {
+    return this.openai.createImage({
+      prompt: prompt,
+      n: 1,
+      size: '1024x1024',
     })
   }
 }
